@@ -7,29 +7,24 @@
 const domBtn = document.getElementById('btn');
 const domGriglia = document.getElementById('griglia');
 let domDifficolta = document.getElementById('difficolta');
+let arrayBombe = arrayNumber();
+    console.log(arrayBombe);
+        
 domBtn.addEventListener('click',
     function(){
         domGriglia.innerHTML= '';
         let difficolta = domDifficolta.value;
-        console.log(domDifficolta.value);
-
-
-        console.log(arrayNumber());
-        
-
-
+              
         for( let i = 0; i < difficolta; i++) {
             const box = newBox(i+1, difficolta);
             domGriglia.append(box);
             box.addEventListener('click',
                 function(){
                     this.classList.toggle('click');
-                    console.log(box.innerHTML);
+                    console.log(box.innerHTML);           
                 }
             );
         }
-
-        
     }
 );
 
@@ -37,6 +32,7 @@ function newBox(numero, difficolta){
     const box = document.createElement('div');
     box.classList.add('box-general');
     box.innerHTML = numero;
+    
 
     if(difficolta == 100){
         box.classList.add('box');
@@ -52,7 +48,6 @@ function newBox(numero, difficolta){
 
 function arrayNumber(){
     let myArray = [];
-    console.log(myArray);
 
     for(let i = 0; i <= 15; i++){
         const newNumber = generateUniqueRandomNumber(myArray);
@@ -63,7 +58,7 @@ function arrayNumber(){
 }
 
 function generateRandomNumber(){
-    const randomNumber = Math.floor((Math.random() * (100 - 1 +1)) + 1);
+    const randomNumber = Math.floor((Math.random() * (100 - 1 + 1)) + 1);
     return randomNumber;
 }
 
@@ -72,11 +67,10 @@ function generateUniqueRandomNumber(array){
     let uniqueRandomNumber;
     while( !value ){
         uniqueRandomNumber = generateRandomNumber();
-        console.log(uniqueRandomNumber);
         
         if(!array.includes(uniqueRandomNumber)){
             value = true;
-            console.log(value);
+            
         }
     }
     return uniqueRandomNumber;
