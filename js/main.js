@@ -7,24 +7,39 @@
 const domBtn = document.getElementById('btn');
 const domGriglia = document.getElementById('griglia');
 let domDifficolta = document.getElementById('difficolta');
-let arrayBombe = arrayNumber();
-    console.log(arrayBombe);
-        
+
+
+
 domBtn.addEventListener('click',
     function(){
         domGriglia.innerHTML= '';
         let difficolta = domDifficolta.value;
+        const arrayBombe = arrayNumber(16, difficolta);
+        console.log(arrayBombe);
+        
               
         for( let i = 0; i < difficolta; i++) {
             const box = newBox(i+1, difficolta);
             domGriglia.append(box);
             box.addEventListener('click',
                 function(){
-                    this.classList.toggle('click');
-                    console.log(box.innerHTML);           
+                
+                    if (arrayBombe.includes(i)){
+                        this.classList.toggle('bomba');
+                    }else{
+                        this.classList.toggle('click');
+                    }
+                    console.log(box.innerHTML);    
+
                 }
+
+
+
             );
         }
+
+
+
     }
 );
 
@@ -32,8 +47,6 @@ function newBox(numero, difficolta){
     const box = document.createElement('div');
     box.classList.add('box-general');
     box.innerHTML = numero;
-    
-
     if(difficolta == 100){
         box.classList.add('box');
     }
@@ -46,31 +59,27 @@ function newBox(numero, difficolta){
     return box;
 }
 
-function arrayNumber(){
+function arrayNumber(number, difficolta){
     let myArray = [];
-
-    for(let i = 0; i <= 15; i++){
-        const newNumber = generateUniqueRandomNumber(myArray);
+    for(let i = 0; i < number; i++){
+        const newNumber = generateUniqueRandomNumber(myArray, 1, difficolta);
         myArray.push(newNumber);
-        
     }
     return myArray;
 }
 
-function generateRandomNumber(){
-    const randomNumber = Math.floor((Math.random() * (100 - 1 + 1)) + 1);
+function generateRandomNumber(min, max){
+    const randomNumber = Math.floor((Math.random() * (max - min + 1)) + min);
     return randomNumber;
 }
 
-function generateUniqueRandomNumber(array){
+function generateUniqueRandomNumber(array, min, max){
     let value = false;
     let uniqueRandomNumber;
     while( !value ){
-        uniqueRandomNumber = generateRandomNumber();
-        
+        uniqueRandomNumber = generateRandomNumber(min, max);
         if(!array.includes(uniqueRandomNumber)){
-            value = true;
-            
+            value = true; 
         }
     }
     return uniqueRandomNumber;
